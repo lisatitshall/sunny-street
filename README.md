@@ -11,11 +11,14 @@ The aims of the visualization are to:
 - Quantify the effect the service has on Emergency Department presentations
 
 ### Steps followed
-- Step 1: Load data from Excel spreadsheets into Power BI
-- Step 2: Use Power Query Editor to explore data and change datatypes as required
+- Step 1: Use Sunny Street brand guidelines to create a theme in Power BI (font types need changing later)
+- Step 2: Load data from Excel spreadsheets into Power BI
+- Step 3: Use Power Query Editor to explore data and change datatypes as required
+
+For more detail on the actions taken during selected steps see the [Detailed Steps](#detailed-steps) section.
 
 ## Detailed steps
-### Step 2: Use Power Query Editor to explore data
+### Step 3: Use Power Query Editor to explore data
 The following actions were taken for the patient data:
 - Changed numerical data types to text if they didn't require calculations e.g. postcode
 - Removed blank rows
