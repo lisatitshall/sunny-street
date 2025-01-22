@@ -24,6 +24,6 @@ The following actions were taken for the patient data:
 - Removed blank rows
 - Replaced year of birth 1900 with null. This is where the year wasn't provided by the patient or wasn't added to the dataset.
 - Replaced ethnicity "Not provided" with null because there were already a lot of nulls and there wasn't a good reason to have a separate "Not provided" category.
-- Added a conditional column for Ethnicity Region. This was because there were many ethnicities listed and some only had a few data points. It made more sense to group into larger regions e.g. Europe, Asia, Africa, Middle East and Oceania. Note: the Oceania category consists of ethnicities that aren't Australian e.g. New Zealand and Samoa. 
+- Added a custom column for Ethnicity Region. This was because there were many ethnicities listed and some only had a few data points. It made more sense to group into larger regions e.g. Europe, Asia, Middle East and Africa and Oceania. Note: the Oceania category consists of ethnicities that aren't Australian e.g. New Zealander and Samoan. 
 - Replaced gender "Unknown" and "Other" with null because were only two data points with these entries. 
 
