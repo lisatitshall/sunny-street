@@ -14,6 +14,7 @@ The aims of the visualization are to:
 - Step 1: Use Sunny Street brand guidelines to create a theme in Power BI (font types need changing later)
 - Step 2: Load data from Excel spreadsheets into Power BI
 - Step 3: Use Power Query Editor to explore data and change datatypes as required
+- Step 4: Brainstorm visualization ideas taking the overall aims into account
 
 For more detail on the actions taken during selected steps see the [Detailed Steps](#detailed-steps) section.
 
@@ -33,5 +34,41 @@ The following actions were taken for the activity data:
 - Replaced blank Journal Entry with null (and checked repeated comments were for different activities)
 - Replaced negative number in Service provider conversations column with positive
 - Replaced 0 with null in a number of columns. In the Data Dictionary a 0 in certain columns meant data wasn't recorded. This would be better as a null because 0's would affect calculations. 
-- Replaced values in Patient Feedback and Service Provider Feedback columns. There were lots of ways of saying "None" which were all replaced with null. Also decided to replace numbers with null because the column is free text so we couldn't use these numbers for any calculations. 
+- Replaced values in Patient Feedback and Service Provider Feedback columns. There were lots of ways of saying "None" which were all replaced with null. Also decided to replace numbers with null because the column is free text so we couldn't use these numbers for any calculations.
+
+### Step 4: Brainstorming ideas 
+- What data are we working with?
+  - Time series, quantitative, free text and a little geospatial
+- What are we trying to communicate?
+  - Social impact of Sunny Street service (high level KPI's e.g. how many people helped)
+  - Positive impact on people's lives (analyse free text feedback)
+  - How the service has changed between 2019 and 2021 (comparison over categories)
+  - How the demographics have changed between 2019 and 2021 (composition of age, gender, ethnicity, location and housing status)
+- Who will look at the report and why?
+  - Stakeholders and sponsors who help fund the service to understand impact and progress
+- What could be on each page?
+  - KPI's
+    - Total number of patients helped
+    - Number of unique patients helped (one person can be listed across multiple years)
+    - Number of activities run
+    - Map of where activities have run
+    - Average activity duration
+    - Total medical consults (maybe combine different types of consultations in one visual)
+    - Total nursing / paramedic consults
+    - Total patient conversations
+    - Total patients turned away
+  - Services
+    - Line chart showing number of activities by month (any trend by quarter and program?)
+    - Bar chart showing mental health conversations over time
+    - Bar chart showing suicide prevention conversations over time
+    - Bar chart showing substance use conversations over time
+    - Bar chart showing number of referrals by year
+  - Demographics
+    - Bar chart of gender split over time (use % instead of count because we have part years of data)
+    - Bar chart of housing status split over time (use % instead of count because we have part years of data)
+    - Stacked bar chart of ethnicities by year (may need further simplification of ethnicities)
+    - Stacked bar chart of age groups by year (would need sensible split for ages, check adulthood and retirement ages in Australia)
+  - Feedback
+    - Word cloud for common words in Journal Entry?
+    - Sentiment analysis for patient feedback (seems mix of frustrations and positive)
 
