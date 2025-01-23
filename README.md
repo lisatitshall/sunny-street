@@ -25,5 +25,13 @@ The following actions were taken for the patient data:
 - Replaced year of birth 1900 with null. This is where the year wasn't provided by the patient or wasn't added to the dataset.
 - Replaced ethnicity "Not provided" with null because there were already a lot of nulls and there wasn't a good reason to have a separate "Not provided" category.
 - Added a custom column for Ethnicity Region. This was because there were many ethnicities listed and some only had a few data points. It made more sense to group into larger regions e.g. Europe, Asia, Middle East and Africa and Oceania. Note: the Oceania category consists of ethnicities that aren't Australian e.g. New Zealander and Samoan. 
-- Replaced gender "Unknown" and "Other" with null because were only two data points with these entries. 
+- Replaced gender "Unknown" and "Other" with null because were only two data points with these options.
+
+The following actions were taken for the activity data:
+- Changed the datatypes of Start Time and End Time columns from datetime to time
+- Removed Length Hours column because the same information is stored in the Length Minutes column
+- Replaced blank Journal Entry with null (and checked repeated comments were for different activities)
+- Replaced negative number in Service provider conversations column with positive
+- Replaced 0 with null in a number of columns. In the Data Dictionary a 0 in certain columns meant data wasn't recorded. This would be better as a null because 0's would affect calculations. 
+- Replaced values in Patient Feedback and Service Provider Feedback columns. There were lots of ways of saying "None" which were all replaced with null. Also decided to replace numbers with null because the column is free text so we couldn't use these numbers for any calculations. 
 
