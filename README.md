@@ -15,6 +15,7 @@ The aims of the visualization are to:
 - Step 2: Load data from Excel spreadsheets into Power BI
 - Step 3: Use Power Query Editor to explore data and change datatypes as required
 - Step 4: Brainstorm visualization ideas taking the overall aims into account
+- Step 5: Add measures and calculated columns
 
 For more detail on the actions taken during selected steps see the [Detailed Steps](#detailed-steps) section.
 
@@ -71,4 +72,50 @@ The following actions were taken for the activity data:
   - Feedback
     - Word cloud for common words in Journal Entry?
     - Sentiment analysis for patient feedback (seems mix of frustrations and positive)
+   
+### Step 5: Add measures and calculated columns
+The following are examples of measures and calculated columns that were introduced.
+- This measure allowed us to visualize how the gender of patients has changed between 2019 and 2021
+  ```
+  Gender Percentage = DIVIDE(
+    COUNT(Patients[Gender]),
+    CALCULATE(
+        COUNT(Patients[Gender]), 
+        REMOVEFILTERS(Patients[Gender]))
+  )
+  ```
+- This calculated column further simplified the patient ethnicities to show a clearer relationship
+  ```
+  Ethnicity Region Broad = SWITCH(
+    Patients[Ethnicity Region],
+    "Aboriginal", "Aboriginal/Torres Strait Islander",
+    "Torres Strait Islander", "Aboriginal/Torres Strait Islander",
+    "European", "Other",
+    "Middle Eastern and African", "Other", 
+    "Asian", "Other",
+    Patients[Ethnicity Region]
+    )
+  ```
+- This calculated column allowed us to calculate the age of patients. Note: we don't have birth month of patients so some accuracy is lost.
+  ```
+  Age = IF(
+    ISBLANK(Patients[Year of birth ]), 
+    BLANK(),
+    Patients[Year] - Patients[Year of birth ]
+  )
+  ```
+- This calculated column allowed us to group ages
+  ```
+  Age Group = SWITCH(
+    TRUE(),
+    ISBLANK(Patients[Age]), BLANK(),
+    Patients[Age] < 18, "0-17",
+    Patients[Age] <= 24, "18-24",
+    Patients[Age] <= 34, "25-34",
+    Patients[Age] <= 44, "35-44",
+    Patients[Age] <= 54, "45-54",
+    Patients[Age] <= 64, "55-64",
+    "65+"
+  )
+  ```
 
