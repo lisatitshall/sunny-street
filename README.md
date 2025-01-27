@@ -16,6 +16,7 @@ The aims of the visualization are to:
 - Step 3: Use Power Query Editor to explore data and change datatypes as required
 - Step 4: Brainstorm visualization ideas taking the overall aims into account
 - Step 5: Add measures and calculated columns
+- Step 6: Add visualizations and visual calculations
 
 For more detail on the actions taken during selected steps see the [Detailed Steps](#detailed-steps) section.
 
@@ -63,7 +64,7 @@ The following actions were taken for the activity data:
     - Line chart showing conversations over time - mental health, suicide preventation, substance use, health education, medication and total (patients)
     - Bar chart showing number of referrals by year
     - Line chart showing consultations over time - medical, nurse practitioner, nursing/paramedic, allied health, telehealth
-    - Add Covid information to highlight differences in services (March 23rd 2020 national lockdown March 30th Queensland lockdown, July 8th 2020 - October 26th 2020 Victoria lockdown, Dec-Jan 2021 smaller lockdowns for Sydney areas, Feb short Victoria lockdown, Jan/Mar/June/July/August 2021 small Queensland lockdowns, May-Aug 2021 Victoria/NSW lockdowns, Oct 2021 last lockdowns end)
+    - Add Covid information to highlight differences in services (March 23rd 2020 national lockdown, March 30th Queensland lockdown, 2nd May 2020 restrictions eased, July 8th 2020 - October 26th 2020 Victoria lockdown, Dec-Jan 2021 smaller lockdowns for Sydney areas, Feb short Victoria lockdown, Jan 8th /Mar/June/July/August 2021 small Queensland lockdowns, May-Aug 2021 Victoria/NSW lockdowns, Oct 2021 last lockdowns end)
   - Demographics
     - Bar chart of gender split over time (use % instead of count because we have part years of data)
     - Bar chart of housing status split over time (use % instead of count because we have part years of data)
@@ -118,4 +119,23 @@ The following are examples of measures and calculated columns that were introduc
     "65+"
   )
   ```
+  ### Step 6: Add visualizations and visual calculations
+  The following visual calculation was added to a matrix summarizing the housing status of Sunny Street service users. It calculates the percentage change between years. Data types in visual calculations can't be changed so the FORMAT function was used to return a percentage with 0 decimal places. 
+  ```
+  % Change = IF(
+    ISBLANK(PREVIOUS([%])),
+    BLANK(),
+    FORMAT(([%] - PREVIOUS([%])), "0%")
+    )
+  ```
+  The final table after formatting is shown below.
+  
+  ![image](https://github.com/user-attachments/assets/2e02583d-f9ac-41ca-bd6d-4f65a576e065)
+
+  The following line chart shows how the number of consultations has changed over time. Sunny Street were interested in seeing how Covid-19 affected services so vertical lines have been added to show key milestones of the pandemic. The number of consultations saw a sharp spike after the 1st lockdown and slowed down after restrictions were eased. In November 2020 there was another spike which could be due to rising cases before the 2nd lockdown was introduced in January 2021. The start of the pandemic also coincided with the introduction of telehealth consultations. 
+
+  ![image](https://github.com/user-attachments/assets/34226984-ca59-4970-bfcb-aa9ba0a06638)
+
+
+  
 
