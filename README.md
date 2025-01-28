@@ -11,7 +11,7 @@ The aims of the visualization are to:
 - Quantify the effect the service has on Emergency Department presentations
 
 ### Steps followed
-- Step 1: Use Sunny Street brand guidelines to create a theme in Power BI (font types need changing later)
+- Step 1: Use Sunny Street brand guidelines to create a theme in Power BI (note: font types don't match)
 - Step 2: Load data from Excel spreadsheets into Power BI
 - Step 3: Use Power Query Editor to explore data and change datatypes as required
 - Step 4: Brainstorm visualization ideas taking the overall aims into account
@@ -19,6 +19,18 @@ The aims of the visualization are to:
 - Step 6: Add visualizations and visual calculations
 
 For more detail on the actions taken during selected steps see the [Detailed Steps](#detailed-steps) section.
+
+## Report
+The first page of the report was a high level overview of the services that Sunny Street provide. A row of cards show key KPI's, two simple bar and column charts show activities and patient ages and a map shows activity locations. 
+
+![image](https://github.com/user-attachments/assets/30cee75d-8c5c-41f4-8407-70b86199c85c)
+
+The second page explored how services have changed over time with particular emphasis on the impact of Covid-19. 
+![image](https://github.com/user-attachments/assets/d01181ae-ecc7-40bb-ba9f-bafe8fecbeb2)
+
+The third page looked at patient demographics and how they've also changed over time. 
+
+![image](https://github.com/user-attachments/assets/688ba44c-5923-41d5-8a13-8a96c6e51cc1)
 
 ## Detailed steps
 ### Step 3: Use Power Query Editor to explore data
