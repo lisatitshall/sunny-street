@@ -54,11 +54,9 @@ The following actions were taken for the activity data:
     - Number of unique patients helped (one person can be listed across multiple years)
     - Number of activities run
     - Map of where activities have run
-    - Average activity duration
-    - Total medical consults (maybe combine different types of consultations in one visual)
-    - Total nursing / paramedic consults
-    - Total patient conversations
-    - Total patients turned away
+    - Total / Average activity duration
+    - Bar chart showing number of activities by program
+    - Bar chart showing number of patients by age and housing status
   - Services
     - Bar chart showing number of activities by quarter (any trend by program, filter to remove partial quarters/years)
     - Line chart showing conversations over time - mental health, suicide preventation, substance use, health education, medication and total (patients)
@@ -136,6 +134,8 @@ The following are examples of measures and calculated columns that were introduc
 
   ![image](https://github.com/user-attachments/assets/34226984-ca59-4970-bfcb-aa9ba0a06638)
 
-
-  
-
+  For a map visual a custom tooltip was created (see below). This was useful for a couple of reasons:
+  - By default the latitude and longitude were shown on the tooltip. They didn't add useful information and looked messy.
+  - They allow for a quick comparison between activities in all areas (shown on cards at the top of the page) with a single area
+ 
+  ![image](https://github.com/user-attachments/assets/f15e220b-e68f-411c-a479-8e29167f3634)
