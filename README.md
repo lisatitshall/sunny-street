@@ -17,6 +17,7 @@ The aims of the visualization are to:
 - Step 4: Brainstorm visualization ideas taking the overall aims into account
 - Step 5: Add measures and calculated columns
 - Step 6: Add visualizations and visual calculations
+- Step 7: Add R script visualizations for free text analysis
 
 For more detail on the actions taken during selected steps see the [Detailed Steps](#detailed-steps) section.
 
@@ -31,6 +32,10 @@ The second page explored how services have changed over time with particular emp
 The third page looked at patient demographics and how they've also changed over time. 
 
 ![image](https://github.com/user-attachments/assets/688ba44c-5923-41d5-8a13-8a96c6e51cc1)
+
+The final page looks at feedback from patients and service providers. The visuals on the left explore the 10 most common words of positive, neutral and negative sentiment. The visuals on the right give each word a sentiment score between -5 and 5 where 0 is neutral and 5 is extremely positive. The darker the pink, the more words have the same sentiment score/word count. 
+
+![image](https://github.com/user-attachments/assets/31bd5134-29a7-48db-b58e-178507b0b41a)
 
 ## Detailed steps
 ### Step 3: Use Power Query Editor to explore data
@@ -151,3 +156,46 @@ The following are examples of measures and calculated columns that were introduc
   - They allow for a quick comparison between activities in all areas (shown on cards at the top of the page) with a single area
  
   ![image](https://github.com/user-attachments/assets/f15e220b-e68f-411c-a479-8e29167f3634)
+
+  ### Step 7: Use R scripts for free text analysis
+  The following R code was used to produce visualizations plotting the 10 most common words by sentiment.
+  ```
+  #create a list of common words that won't be meaningful in this context
+  common_words <- c("patient", "patients", "person", "people", 
+                    "sunny", "street", "ss",
+                    "nurse", "doctor", "dr") 
+  other_stop_words <- as.data.frame(common_words) %>% 
+    rename(word = common_words)
+  
+  #tokenize patient feedback into words and remove stop/common words
+  patient_feedback_words <- patient_feedback %>% 
+    filter(!is.na(PatientFeedback)) %>%
+    unnest_tokens(word, PatientFeedback) %>% 
+    anti_join(stop_words) %>% anti_join(other_stop_words)
+
+  #count words first, then find sentiment
+  feedback_common_sentiment <- patient_feedback_words %>%
+  count(word, sort = TRUE) %>%
+  left_join(get_sentiments("bing")) %>% 
+  replace_na(list(sentiment = "neutral"))
+
+  #plot 10 most common words of all sentiments
+  feedback_common_sentiment %>%
+    group_by(sentiment) %>%
+    slice_max(n, n= 10, with_ties = FALSE) %>%
+    ungroup() %>% 
+    mutate(word = reorder(word, n)) %>%
+    ggplot(aes(n, word, fill = sentiment)) +
+    geom_col() +
+    facet_wrap(~sentiment, scales = "free_y") +
+    labs(y = NULL, x = "Word Count") +
+    theme_bw() +
+    theme(axis.text=element_text(size=18),
+          axis.title=element_text(size=18),
+          legend.text=element_text(size=18),
+          legend.title=element_text(size=18),
+          strip.text = element_blank(),
+          line= element_blank()) +
+    scale_fill_manual(values = c("#FDDB22", "#5F6B6D", "#ED0C6E"))
+  ```
+
