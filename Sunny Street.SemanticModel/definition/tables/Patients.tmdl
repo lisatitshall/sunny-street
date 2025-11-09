@@ -132,16 +132,20 @@ table Patients
 				    #"Removed Blank Rows" = Table.SelectRows(#"Changed Type", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
 				    #"Replaced Value" = Table.ReplaceValue(#"Removed Blank Rows",1900,null,Replacer.ReplaceValue,{"Year of birth "}),
 				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value","Not provided",null,Replacer.ReplaceValue,{"Ethnicity"}),
-				    #"Replaced Value2" = Table.ReplaceValue(#"Replaced Value1","Other",null,Replacer.ReplaceValue,{"Gender"}),
-				    #"Replaced Value3" = Table.ReplaceValue(#"Replaced Value2","Unknown",null,Replacer.ReplaceValue,{"Gender"}),
-				    #"Added Custom" = Table.AddColumn(#"Replaced Value3", "Ethnicity Region", each if List.Contains({"English","French","Greek","Finnish", "Italian"},[Ethnicity]) then "European"
+				    #"Replaced Value2" = Table.ReplaceValue(#"Replaced Value1",
+				    each [Gender],
+				    each if [Gender] = "Other" then null
+				    else if [Gender] = "Unknown" then null
+				    else [Gender],
+				    Replacer.ReplaceValue,{"Gender"}),
+				    #"Added Custom" = Table.AddColumn(#"Replaced Value2", "Ethnicity Region", each if List.Contains({"English","French","Greek","Finnish", "Italian"},[Ethnicity]) then "European"
 				else if List.Contains({"Lao","Indonesian", "Mongolian"},[Ethnicity]) then "Asian"
 				else if List.Contains({"Lebanese", "Somali", "Liberian"},[Ethnicity]) then "Middle Eastern and African"
 				else if List.Contains({"New Zealander", "Samoan", "Tongan","Maori", "Papua New Guinean"},[Ethnicity]) then "Oceanian"
 				else [Ethnicity]),
-				    #"Replaced Value4" = Table.ReplaceValue(#"Added Custom","Address hidden","Housed",Replacer.ReplaceText,{"Patient address "})
+				    #"Replaced Value3" = Table.ReplaceValue(#"Added Custom","Address hidden","Housed",Replacer.ReplaceText,{"Patient address "})
 				in
-				    #"Replaced Value4"
+				    #"Replaced Value3"
 
 	annotation PBI_NavigationStepName = Navigation
 
