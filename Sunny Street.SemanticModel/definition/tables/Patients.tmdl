@@ -1,0 +1,149 @@
+table Patients
+	lineageTag: 251dc601-3991-448a-aba8-adc6cdd70dd0
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 70cd327c-0c07-49e2-a626-fd8bcb19c171
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Patient address '
+		dataType: string
+		lineageTag: 76688f50-a6f7-4f34-a173-19524352f0fc
+		summarizeBy: none
+		sourceColumn: "Patient address "
+
+		annotation SummarizationSetBy = Automatic
+
+	column Postcode
+		dataType: string
+		lineageTag: 496aaf42-1c56-447c-9e32-6b44d0450f7e
+		summarizeBy: none
+		sourceColumn: Postcode
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: 8c2986cb-939b-48d5-ab3e-d3cf8e663eec
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year of birth '
+		dataType: int64
+		formatString: 0
+		lineageTag: 090831a1-f75a-4b75-b0ad-de53d2aac520
+		summarizeBy: sum
+		sourceColumn: "Year of birth "
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ethnicity
+		dataType: string
+		lineageTag: f19cda3c-4cf7-4d8b-bc6c-8e6e8c45cca4
+		summarizeBy: none
+		sourceColumn: Ethnicity
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Patient unique ID'
+		dataType: string
+		lineageTag: d626ca82-c9df-45cd-a6e0-2644f3b680fc
+		summarizeBy: none
+		sourceColumn: Patient unique ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gender
+		dataType: string
+		lineageTag: 87acbb48-f1aa-4b52-a28d-11a3931a9cc3
+		summarizeBy: none
+		sourceColumn: Gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ethnicity Region'
+		dataType: string
+		lineageTag: 78698a81-30cc-47cb-a86b-4028889b2ea1
+		summarizeBy: none
+		sourceColumn: Ethnicity Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ethnicity Region Broad' = ```
+			SWITCH(
+			    Patients[Ethnicity Region],
+			    "Aboriginal", "Aboriginal/Torres Strait Islander",
+			    "Torres Strait Islander", "Aboriginal/Torres Strait Islander",
+			    "European", "Other",
+			    "Middle Eastern and African", "Other", 
+			    "Asian", "Other",
+			    Patients[Ethnicity Region]
+			    )
+			```
+		lineageTag: 92bf7156-f193-4d84-8fa1-d42aacab7863
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age = ```
+			IF(
+			    ISBLANK(Patients[Year of birth ]), 
+			    BLANK(),
+			    Patients[Year] - Patients[Year of birth ]
+			)
+			```
+		formatString: 0
+		lineageTag: 3c6dee99-221d-425c-be13-7fe293a6d696
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Age Group' =
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(Patients[Age]), BLANK(),
+			    Patients[Age] < 18, "0-17",
+			    Patients[Age] <= 24, "18-24",
+			    Patients[Age] <= 34, "25-34",
+			    Patients[Age] <= 44, "35-44",
+			    Patients[Age] <= 54, "45-54",
+			    Patients[Age] <= 64, "55-64",
+			    "65+"
+			)
+		lineageTag: 6ec3debd-fcfe-4b04-bba4-d14f000fee52
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Patients = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\lisat\Documents\Sunny Street\data\Sunny Street - Patient data 3 years.xlsx"), null, true),
+				    #"Patient data_Sheet" = Source{[Item="Patient data",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Patient data_Sheet", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Year", Int64.Type}, {"Patient address ", type text}, {"Postcode", type text}, {"City", type text}, {"Year of birth ", Int64.Type}, {"Ethnicity", type text}, {"Patient unique ID", type text}, {"Gender", type text}}),
+				    #"Removed Blank Rows" = Table.SelectRows(#"Changed Type", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Replaced Value" = Table.ReplaceValue(#"Removed Blank Rows",1900,null,Replacer.ReplaceValue,{"Year of birth "}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value","Not provided",null,Replacer.ReplaceValue,{"Ethnicity"}),
+				    #"Replaced Value2" = Table.ReplaceValue(#"Replaced Value1","Other",null,Replacer.ReplaceValue,{"Gender"}),
+				    #"Replaced Value3" = Table.ReplaceValue(#"Replaced Value2","Unknown",null,Replacer.ReplaceValue,{"Gender"}),
+				    #"Added Custom" = Table.AddColumn(#"Replaced Value3", "Ethnicity Region", each if List.Contains({"English","French","Greek","Finnish", "Italian"},[Ethnicity]) then "European"
+				else if List.Contains({"Lao","Indonesian", "Mongolian"},[Ethnicity]) then "Asian"
+				else if List.Contains({"Lebanese", "Somali", "Liberian"},[Ethnicity]) then "Middle Eastern and African"
+				else if List.Contains({"New Zealander", "Samoan", "Tongan","Maori", "Papua New Guinean"},[Ethnicity]) then "Oceanian"
+				else [Ethnicity]),
+				    #"Replaced Value4" = Table.ReplaceValue(#"Added Custom","Address hidden","Housed",Replacer.ReplaceText,{"Patient address "})
+				in
+				    #"Replaced Value4"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

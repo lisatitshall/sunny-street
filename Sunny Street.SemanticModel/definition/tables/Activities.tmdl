@@ -1,0 +1,384 @@
+table Activities
+	lineageTag: 481a4fc6-838c-4433-a911-91f0b707dd56
+
+	column 'Report Type'
+		dataType: string
+		lineageTag: 77ac39b1-65ad-442b-9ec4-3a9c24a58be2
+		summarizeBy: none
+		sourceColumn: Report Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Program
+		dataType: string
+		lineageTag: 40538cce-798c-4f9b-ab75-96b65244e52e
+		summarizeBy: none
+		sourceColumn: Program
+
+		annotation SummarizationSetBy = Automatic
+
+	column Activity
+		dataType: string
+		lineageTag: ea932677-211d-4f3e-b4fd-f6e5342c62dd
+		summarizeBy: none
+		sourceColumn: Activity
+
+		annotation SummarizationSetBy = Automatic
+
+	column Latitude
+		dataType: double
+		lineageTag: b5c8b5a7-05b4-4625-a841-859f58ba687b
+		summarizeBy: sum
+		sourceColumn: Latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Longitude
+		dataType: double
+		lineageTag: f47b133b-1249-4d97-81f8-844ff93eada6
+		summarizeBy: sum
+		sourceColumn: Longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Activity Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 6082c43a-6e29-41be-9477-2a1f74e82f55
+		summarizeBy: none
+		sourceColumn: Activity Date
+
+		variation Variation
+			isDefault
+			relationship: 4b59c5ed-edc7-42bd-9608-1f51b5f19b0a
+			defaultHierarchy: LocalDateTable_49cd41ef-c6c0-4559-bfda-98e40b97785f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Submission Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e0789887-8225-423e-99db-5c939eb0cf12
+		summarizeBy: none
+		sourceColumn: Submission Date
+
+		variation Variation
+			isDefault
+			relationship: 111452aa-e720-4991-ac7f-350fcec41ab3
+			defaultHierarchy: LocalDateTable_26a8930b-7d72-4840-9847-d0a21f2f9c40.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Start Time'
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 40ea7036-fda3-434e-813c-a5cebcecb4dc
+		summarizeBy: none
+		sourceColumn: Start Time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column 'End Time'
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 20273c16-1e18-4ba1-8b04-f7158d94dd0f
+		summarizeBy: none
+		sourceColumn: End Time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column 'Length minutes'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8bb17cc6-4f9a-40dd-a454-9c44bf4906ca
+		summarizeBy: sum
+		sourceColumn: Length minutes
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Journal Entry'
+		dataType: string
+		lineageTag: ddddbb78-9641-4bfe-88d2-081f115242c1
+		summarizeBy: none
+		sourceColumn: Journal Entry
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Medical Consults'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9e62890a-ddd9-4e4f-94a1-759155ab1d80
+		summarizeBy: sum
+		sourceColumn: Medical Consults
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nurse Practitioner Consults'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4a76e319-7207-4c2a-9573-7b1d6bc39697
+		summarizeBy: sum
+		sourceColumn: Nurse Practitioner Consults
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nursing/Paramedic Consults'
+		dataType: int64
+		formatString: 0
+		lineageTag: c87a792e-80cb-44c3-b3e7-08e4e0fef5d5
+		summarizeBy: sum
+		sourceColumn: Nursing/Paramedic Consults
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Conversations about health education'
+		dataType: int64
+		formatString: 0
+		lineageTag: e03322c7-4c6f-420b-bd9f-77ce07e3cdf9
+		summarizeBy: sum
+		sourceColumn: Conversations about health education
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Allied Health'
+		dataType: int64
+		formatString: 0
+		lineageTag: bf8fe5e3-cc9b-46a0-bee0-c4eed120cea9
+		summarizeBy: sum
+		sourceColumn: Allied Health
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Referrals (Formal and informal)'
+		dataType: int64
+		formatString: 0
+		lineageTag: fd5b4d7f-2196-4013-bae4-fbda20b05188
+		summarizeBy: sum
+		sourceColumn: Referrals (Formal and informal)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Patient Conversations'
+		dataType: int64
+		formatString: 0
+		lineageTag: 95c33d4a-b4d5-4057-b2e2-d994d6685c4c
+		summarizeBy: sum
+		sourceColumn: Patient Conversations
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Service provider conversations'
+		dataType: double
+		lineageTag: 2756c0b4-cf94-43bc-aff7-27f1c6d4bec9
+		summarizeBy: sum
+		sourceColumn: Service provider conversations
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Mental health'
+		dataType: int64
+		formatString: 0
+		lineageTag: 7e33a530-28df-4642-98ab-d85350243ec0
+		summarizeBy: sum
+		sourceColumn: Mental health
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Suicide prevention/planning'
+		dataType: int64
+		formatString: 0
+		lineageTag: dcffb116-e331-485a-9185-9c25248ad69c
+		summarizeBy: sum
+		sourceColumn: Suicide prevention/planning
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Substance use'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9ebfcd90-625e-47c8-a76c-26aaa7d7110a
+		summarizeBy: sum
+		sourceColumn: Substance use
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Medication education'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1823c9dc-5951-47c3-92d3-f987d48769ac
+		summarizeBy: sum
+		sourceColumn: Medication education
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Patients turned away'
+		dataType: int64
+		formatString: 0
+		lineageTag: a70f4387-91f6-4948-a31f-7257de86a456
+		summarizeBy: sum
+		sourceColumn: Patients turned away
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Telehealth consults that happened at Clinic'
+		dataType: int64
+		formatString: 0
+		lineageTag: 53aa6f9f-8540-4b83-9812-f3ea33d613aa
+		summarizeBy: sum
+		sourceColumn: Telehealth consults that happened at Clinic
+
+		annotation SummarizationSetBy = Automatic
+
+	column PatientFeedback
+		dataType: string
+		lineageTag: 78e05ecb-1a52-4f1b-b361-eededc25e854
+		summarizeBy: none
+		sourceColumn: PatientFeedback
+
+		annotation SummarizationSetBy = Automatic
+
+	column ServiceProviderFeedback
+		dataType: string
+		lineageTag: 5d76152e-523c-4d80-9957-0b918fca377e
+		summarizeBy: none
+		sourceColumn: ServiceProviderFeedback
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Complete debrief'
+		dataType: string
+		lineageTag: 0e1fbe65-fc79-4b2f-ba19-c435410e081a
+		summarizeBy: none
+		sourceColumn: Complete debrief
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Complete all progress notes'
+		dataType: string
+		lineageTag: ae6fe032-05c1-4073-8e72-6eaebe1d1525
+		summarizeBy: none
+		sourceColumn: Complete all progress notes
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Enter all doctor and nurse practitioner appointments'
+		dataType: string
+		lineageTag: b1b63879-b8a2-4daf-8bfc-a86d1578d06a
+		summarizeBy: none
+		sourceColumn: Enter all doctor and nurse practitioner appointments
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Wipe down clinic area'
+		dataType: string
+		lineageTag: eace6ebd-524c-4a25-86ee-af8933fac2b2
+		summarizeBy: none
+		sourceColumn: Wipe down clinic area
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Shift Safety'
+		dataType: int64
+		formatString: 0
+		lineageTag: dc7024d0-7884-47f5-a7cb-c202e1db7c00
+		summarizeBy: sum
+		sourceColumn: Shift Safety
+
+		annotation SummarizationSetBy = Automatic
+
+	column ActivitySimplified
+		dataType: string
+		lineageTag: ebcc9e00-1797-4550-b681-9ec54e1de6d8
+		summarizeBy: none
+		sourceColumn: ActivitySimplified
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Activities = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\lisat\Documents\Sunny Street\data\Volaby-Sunny_Street-detailed-stats 2019 - 2021 - V3.xlsx"), null, true),
+				    #"Volaby-Sunny_Street-detailed-st_Sheet" = Source{[Item="Volaby-Sunny_Street-detailed-st",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Volaby-Sunny_Street-detailed-st_Sheet", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Report Type", type text}, {"Program", type text}, {"Activity", type text}, {"Latitude", type number}, {"Longitude", type number}, {"Activity Date", type date}, {"Submission Date", type date}, {"Start Time", type time}, {"End Time", type time}, {"Length hours", Currency.Type}, {"Length minutes", Int64.Type}, {"Journal Entry", type text}, {"Medical Consults", Int64.Type}, {"Nurse Practitioner Consults", Int64.Type}, {"Nursing/Paramedic Consults", Int64.Type}, {"Conversations about health education", Int64.Type}, {"Allied Health", Int64.Type}, {"Referrals (Formal and informal)", Int64.Type}, {"Patient Conversations", Int64.Type}, {"Service provider conversations", Int64.Type}, {"Mental health", Int64.Type}, {"Suicide prevention/planning", Int64.Type}, {"Substance use", Int64.Type}, {"Medication education", Int64.Type}, {"Patients turned away", Int64.Type}, {"Telehealth consults that happened at Clinic", Int64.Type}, {"Patient Feedback Received ", type text}, {"Service Provider Feedback Received ", type text}, {"Complete debrief", type text}, {"Complete all progress notes", type text}, {"Enter all doctor and nurse practitioner appointments", type text}, {"Wipe down clinic area", type text}, {"Shift Safety", Int64.Type}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Length hours"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Removed Columns", each true),
+				    #"Replaced Value" = Table.ReplaceValue(#"Filtered Rows","#(lf)  ",null,Replacer.ReplaceValue,{"Journal Entry"}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value",-7,7,Replacer.ReplaceValue,{"Service provider conversations"}),
+				    #"Replaced Value2" = Table.ReplaceValue(#"Replaced Value1","0",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
+				    #"Replaced Value3" = Table.ReplaceValue(#"Replaced Value2","Nil",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
+				    #"Replaced Value4" = Table.ReplaceValue(#"Replaced Value3","None",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
+				    #"Replaced Value5" = Table.ReplaceValue(#"Replaced Value4","No",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
+				    #"Replaced Value6" = Table.ReplaceValue(#"Replaced Value5","N/A",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
+				    #"Replaced Value7" = Table.ReplaceValue(#"Replaced Value6","Nul",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
+				    #"Replaced Value8" = Table.ReplaceValue(#"Replaced Value7","O",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
+				    #"Replaced Value9" = Table.ReplaceValue(#"Replaced Value8","1",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
+				    #"Replaced Value10" = Table.ReplaceValue(#"Replaced Value9","2",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
+				    #"Replaced Value11" = Table.ReplaceValue(#"Replaced Value10","3",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
+				    #"Replaced Value12" = Table.ReplaceValue(#"Replaced Value11","none",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
+				    #"Replaced Value13" = Table.ReplaceValue(#"Replaced Value12","9",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
+				    #"Replaced Value14" = Table.ReplaceValue(#"Replaced Value13","None Received",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
+				    #"Replaced Value16" = Table.ReplaceValue(#"Replaced Value14","Na",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
+				    #"Replaced Value15" = Table.ReplaceValue(#"Replaced Value16","4",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
+				    #"Replaced Value17" = Table.ReplaceValue(#"Replaced Value15","Oo",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
+				    #"Replaced Value18" = Table.ReplaceValue(#"Replaced Value17","0",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
+				    #"Replaced Value19" = Table.ReplaceValue(#"Replaced Value18","Nil",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
+				    #"Replaced Value20" = Table.ReplaceValue(#"Replaced Value19","O",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
+				    #"Replaced Value21" = Table.ReplaceValue(#"Replaced Value20","1",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
+				    #"Replaced Value22" = Table.ReplaceValue(#"Replaced Value21","2",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
+				    #"Replaced Value23" = Table.ReplaceValue(#"Replaced Value22","3",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
+				    #"Replaced Value24" = Table.ReplaceValue(#"Replaced Value23","None",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
+				    #"Replaced Value25" = Table.ReplaceValue(#"Replaced Value24","No",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
+				    #"Replaced Value26" = Table.ReplaceValue(#"Replaced Value25","N/A",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
+				    #"Replaced Value27" = Table.ReplaceValue(#"Replaced Value26","None ",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
+				    #"Replaced Value28" = Table.ReplaceValue(#"Replaced Value27","none",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
+				    #"Replaced Value29" = Table.ReplaceValue(#"Replaced Value28","N/a",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
+				    #"Replaced Value30" = Table.ReplaceValue(#"Replaced Value29","0",null,Replacer.ReplaceValue,{"Complete debrief"}),
+				    #"Replaced Value31" = Table.ReplaceValue(#"Replaced Value30","0",null,Replacer.ReplaceValue,{"Complete all progress notes"}),
+				    #"Replaced Value32" = Table.ReplaceValue(#"Replaced Value31","0",null,Replacer.ReplaceValue,{"Enter all doctor and nurse practitioner appointments"}),
+				    #"Replaced Value33" = Table.ReplaceValue(#"Replaced Value32","0",null,Replacer.ReplaceValue,{"Wipe down clinic area"}),
+				    #"Replaced Value34" = Table.ReplaceValue(#"Replaced Value33",0,null,Replacer.ReplaceValue,{"Shift Safety"}),
+				    #"Replaced Value35" = Table.ReplaceValue(#"Replaced Value34",0,null,Replacer.ReplaceValue,{"Medical Consults"}),
+				    #"Replaced Value36" = Table.ReplaceValue(#"Replaced Value35",0,null,Replacer.ReplaceValue,{"Nurse Practitioner Consults"}),
+				    #"Replaced Value37" = Table.ReplaceValue(#"Replaced Value36",0,null,Replacer.ReplaceValue,{"Nursing/Paramedic Consults"}),
+				    #"Replaced Value38" = Table.ReplaceValue(#"Replaced Value37",0,null,Replacer.ReplaceValue,{"Allied Health"}),
+				    #"Replaced Value39" = Table.ReplaceValue(#"Replaced Value38",0,null,Replacer.ReplaceValue,{"Telehealth consults that happened at Clinic"}),
+				    #"Replaced Value40" = Table.ReplaceValue(#"Replaced Value39",0,null,Replacer.ReplaceValue,{"Suicide prevention/planning"}),
+				    #"Replaced Value41" = Table.ReplaceValue(#"Replaced Value40",0,null,Replacer.ReplaceValue,{"Mental health"}),
+				    #"Replaced Value42" = Table.ReplaceValue(#"Replaced Value41",0,null,Replacer.ReplaceValue,{"Substance use"}),
+				    #"Replaced Value43" = Table.ReplaceValue(#"Replaced Value42",0,null,Replacer.ReplaceValue,{"Service provider conversations"}),
+				    #"Replaced Value44" = Table.ReplaceValue(#"Replaced Value43",0,null,Replacer.ReplaceValue,{"Patient Conversations"}),
+				    #"Replaced Value45" = Table.ReplaceValue(#"Replaced Value44",0,null,Replacer.ReplaceValue,{"Conversations about health education"}),
+				    #"Replaced Value46" = Table.ReplaceValue(#"Replaced Value45",0,null,Replacer.ReplaceValue,{"Medication education"}),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Replaced Value46", "Activity", "Activity - Copy"),
+				    #"Renamed Columns" = Table.RenameColumns(#"Duplicated Column",{{"Activity - Copy", "ActivitySimplified"}}),
+				    #"Replaced Value47" = Table.ReplaceValue(#"Renamed Columns","Telehealth Clinic ","Telehealth Clinic",Replacer.ReplaceText,{"ActivitySimplified"}),
+				    #"Replaced Value48" = Table.ReplaceValue(#"Replaced Value47","Maroochydore Neighbourhood Centre Community Event","Maroochy Neighbourhood Centre",Replacer.ReplaceText,{"ActivitySimplified"}),
+				    #"Replaced Value49" = Table.ReplaceValue(#"Replaced Value48","Maroochy Neighbourhood Centre ","Maroochy Neighbourhood Centre",Replacer.ReplaceText,{"ActivitySimplified"}),
+				    #"Replaced Value50" = Table.ReplaceValue(#"Replaced Value49","Hervey Bay Neighbourhood/ Community Centre ","Hervey Bay Neighbourhood",Replacer.ReplaceText,{"ActivitySimplified"}),
+				    #"Replaced Value51" = Table.ReplaceValue(#"Replaced Value50","The Shack Friday ","The Shack",Replacer.ReplaceText,{"ActivitySimplified"}),
+				    #"Replaced Value52" = Table.ReplaceValue(#"Replaced Value51","The Shack Wednesday ","The Shack",Replacer.ReplaceText,{"ActivitySimplified"}),
+				    #"Filtered Rows1" = Table.SelectRows(#"Replaced Value52", each true),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Filtered Rows1",{{"Patient Feedback Received ", "PatientFeedback"}, {"Service Provider Feedback Received ", "ServiceProviderFeedback"}})
+				in
+				    #"Renamed Columns1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

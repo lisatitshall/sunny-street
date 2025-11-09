@@ -1,0 +1,82 @@
+table 'All Measures'
+	lineageTag: 04d1719f-21cd-4706-a33b-5e5d4fb4e64f
+
+	measure 'Gender Percentage' = ```
+			DIVIDE(
+			    COUNT(Patients[Gender]),
+			    CALCULATE(
+			        COUNT(Patients[Gender]), 
+			        REMOVEFILTERS(Patients[Gender]))
+			)
+			```
+		formatString: 0%;-0%;0%
+		lineageTag: 5c37cf94-a01b-4fdf-9e33-d83a7e88b014
+
+	measure 'Housing Status Percentage' = ```
+			DIVIDE(
+			    COUNT(Patients[Patient address ]),
+			    CALCULATE(
+			        COUNT(Patients[Patient address ]), 
+			        REMOVEFILTERS(Patients[Patient address ]))
+			)
+			```
+		formatString: 0%;-0%;0%
+		lineageTag: 5fa21a74-b333-492b-94c1-ee68be0418bc
+
+	measure 'Ethnicity Region Percentage' = ```
+			DIVIDE(
+			    COUNT(Patients[Ethnicity Region Broad]),
+			    CALCULATE(
+			        COUNT(Patients[Ethnicity Region Broad]), 
+			        REMOVEFILTERS(Patients[Ethnicity Region Broad]))
+			)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 8f6327ec-4c99-4981-b48b-0494f1ed982f
+
+	measure 'Age Group Percentage' = ```
+			DIVIDE(
+			    COUNT(Patients[Age Group]),
+			    CALCULATE(
+			        COUNT(Patients[Age Group]), 
+			        REMOVEFILTERS(Patients[Age Group]))
+			)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 45762873-2e2b-49dd-8b0f-07dbc178f969
+
+	measure 'Total Activity Length (h)' = ```
+			DIVIDE(
+			    SUM(Activities[Length minutes]), 
+			    60
+			    )
+			```
+		lineageTag: 3e747ce9-70a8-47d3-be49-9683785ecfeb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Average Activity Length (h)' = ```
+			DIVIDE(
+			    AVERAGE(Activities[Length minutes]), 
+			    60
+			    )
+			```
+		lineageTag: 7d0c483e-2c3f-4ad8-87f2-ec44c5673423
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'All Measures' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Column1", "Gender Count"}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Renamed Columns",{"Gender Count"})
+				in
+				    #"Removed Columns"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

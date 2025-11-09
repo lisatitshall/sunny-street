@@ -1,0 +1,23 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-GB
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["Patients","Activities","All Measures"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Patients
+ref table Activities
+ref table DateTableTemplate_34761f10-3b22-4658-90f9-3ffa29557a80
+ref table LocalDateTable_49cd41ef-c6c0-4559-bfda-98e40b97785f
+ref table LocalDateTable_26a8930b-7d72-4840-9847-d0a21f2f9c40
+ref table 'All Measures'
+
+ref cultureInfo en-US
+

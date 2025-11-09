@@ -1,0 +1,10 @@
+relationship 4b59c5ed-edc7-42bd-9608-1f51b5f19b0a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Activities.'Activity Date'
+	toColumn: LocalDateTable_49cd41ef-c6c0-4559-bfda-98e40b97785f.Date
+
+relationship 111452aa-e720-4991-ac7f-350fcec41ab3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Activities.'Submission Date'
+	toColumn: LocalDateTable_26a8930b-7d72-4840-9847-d0a21f2f9c40.Date
+

@@ -1,0 +1,194 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
+  "name": "9e4199c7359d73c703a6",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "height": 120,
+    "width": 320
+  },
+  "visual": {
+    "visualType": "multiRowCard",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Activities"
+                    }
+                  },
+                  "Property": "ActivitySimplified"
+                }
+              },
+              "queryRef": "Activities.ActivitySimplified",
+              "nativeQueryRef": "Activity Name",
+              "displayName": "Activity Name"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Activities"
+                        }
+                      },
+                      "Property": "Activity"
+                    }
+                  },
+                  "Function": 5
+                }
+              },
+              "queryRef": "CountNonNull(Activities.Activity)",
+              "nativeQueryRef": "Activities",
+              "displayName": "Activities"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Activities"
+                        }
+                      },
+                      "Property": "Nursing/Paramedic Consults"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Activities.Nursing/Paramedic Consults)",
+              "nativeQueryRef": "Nursing/Paramedic Consults",
+              "displayName": "Nursing/Paramedic Consults"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All Measures"
+                    }
+                  },
+                  "Property": "Total Activity Length (h)"
+                }
+              },
+              "queryRef": "All Measures.Total Activity Length (h)",
+              "nativeQueryRef": "Total Activity Length (h)",
+              "format": "0"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All Measures"
+                    }
+                  },
+                  "Property": "Average Activity Length (h)"
+                }
+              },
+              "queryRef": "All Measures.Average Activity Length (h)",
+              "nativeQueryRef": "Average Activity Length (h)",
+              "format": "0"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Activities"
+                  }
+                },
+                "Property": "ActivitySimplified"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "card": [
+        {
+          "properties": {
+            "barShow": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "outlineStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "cardPadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dataLabels": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryLabels": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "cardTitle": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

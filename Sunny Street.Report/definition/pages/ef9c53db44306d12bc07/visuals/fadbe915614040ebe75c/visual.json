@@ -1,0 +1,139 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
+  "name": "fadbe915614040ebe75c",
+  "position": {
+    "x": 639.33609958506224,
+    "y": 361.49377593361,
+    "z": 4000,
+    "height": 328.6307053941909,
+    "width": 627.38589211618262,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "scriptVisual",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Activities"
+                    }
+                  },
+                  "Property": "ServiceProviderFeedback"
+                }
+              },
+              "queryRef": "Activities.ServiceProviderFeedback",
+              "nativeQueryRef": "ServiceProviderFeedback"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "script": [
+        {
+          "properties": {
+            "source": {
+              "expr": {
+                "Literal": {
+                  "Value": "'# The following code to create a dataframe and remove duplicated rows is always executed and acts as a preamble for your script: \n\n#dataset <- data.frame(ServiceProviderFeedback)\n#dataset <- unique(dataset)\n\n# Paste or type your script code here:\n\nlibrary(tidyverse)\nlibrary(tidytext)\nlibrary(textdata)\n\n#create a list of common words that won''t be meaningful in this context\ncommon_words <- c(\"patient\", \"patients\", \"person\", \"people\", \n                  \"sunny\", \"street\", \"ss\",\n                  \"nurse\", \"doctor\", \"dr\") \nother_stop_words <- as.data.frame(common_words) %>% rename(word = common_words)\n\n\n#tokenize into words, remove stop/common words \nservice_provider_feedback_words <-  dataset %>% \n  filter(!is.na(ServiceProviderFeedback)) %>%\n  unnest_tokens(word, ServiceProviderFeedback) %>% \n  anti_join(stop_words) %>% anti_join(other_stop_words)\n\n#count words first, then find rating\nfeedback_common_rating <- service_provider_feedback_words %>%\n  count(word, sort = TRUE) %>%\n  left_join(get_sentiments(\"afinn\")) %>% \n  replace_na(list(value = 0))\n\n#plot ratings against how many times words appear\nggplot(feedback_common_rating, aes(x = value, y = n)) +\n  geom_bin_2d() +\n  theme_bw() +\n  theme(\n    line= element_blank(),\n    axis.text=element_text(size=18),\n    axis.title=element_text(size=18),\n    legend.text=element_text(size=16),\n    legend.title=element_text(size=16)\n  ) +\n  labs(x = \"Sentiment Score (5 = extremely positive)\", \n       y =  \"Word Count\") +\n  scale_x_continuous(breaks = c(-5:5), labels = c(-5:5), limits = c(-5,5)) +\n  scale_fill_gradient(name = \"Frequency\", high = \"#ED0C6E\", low = \"#F89EC5\" )'"
+                }
+              }
+            },
+            "provider": {
+              "expr": {
+                "Literal": {
+                  "Value": "'R'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Service Provider Feedback Scores'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "width": {
+              "expr": {
+                "Literal": {
+                  "Value": "5D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Sunny Street"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "2a0e1554-2cfa-48f1-bb6b-b5c63322563d"
+  }
+}
