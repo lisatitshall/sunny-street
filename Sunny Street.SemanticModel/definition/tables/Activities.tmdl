@@ -310,72 +310,82 @@ table Activities
 
 	partition Activities = m
 		mode: import
-		source =
+		source = ```
 				let
 				    Source = Excel.Workbook(File.Contents("C:\Users\lisat\Documents\Sunny Street\data\Volaby-Sunny_Street-detailed-stats 2019 - 2021 - V3.xlsx"), null, true),
 				    #"Volaby-Sunny_Street-detailed-st_Sheet" = Source{[Item="Volaby-Sunny_Street-detailed-st",Kind="Sheet"]}[Data],
 				    #"Promoted Headers" = Table.PromoteHeaders(#"Volaby-Sunny_Street-detailed-st_Sheet", [PromoteAllScalars=true]),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Report Type", type text}, {"Program", type text}, {"Activity", type text}, {"Latitude", type number}, {"Longitude", type number}, {"Activity Date", type date}, {"Submission Date", type date}, {"Start Time", type time}, {"End Time", type time}, {"Length hours", Currency.Type}, {"Length minutes", Int64.Type}, {"Journal Entry", type text}, {"Medical Consults", Int64.Type}, {"Nurse Practitioner Consults", Int64.Type}, {"Nursing/Paramedic Consults", Int64.Type}, {"Conversations about health education", Int64.Type}, {"Allied Health", Int64.Type}, {"Referrals (Formal and informal)", Int64.Type}, {"Patient Conversations", Int64.Type}, {"Service provider conversations", Int64.Type}, {"Mental health", Int64.Type}, {"Suicide prevention/planning", Int64.Type}, {"Substance use", Int64.Type}, {"Medication education", Int64.Type}, {"Patients turned away", Int64.Type}, {"Telehealth consults that happened at Clinic", Int64.Type}, {"Patient Feedback Received ", type text}, {"Service Provider Feedback Received ", type text}, {"Complete debrief", type text}, {"Complete all progress notes", type text}, {"Enter all doctor and nurse practitioner appointments", type text}, {"Wipe down clinic area", type text}, {"Shift Safety", Int64.Type}}),
-				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Length hours"}),
+				    #"Changed Data Types" = Table.TransformColumnTypes(#"Promoted Headers",{{"Report Type", type text}, {"Program", type text}, {"Activity", type text}, {"Latitude", type number}, {"Longitude", type number}, {"Activity Date", type date}, {"Submission Date", type date}, {"Start Time", type time}, {"End Time", type time}, {"Length hours", Currency.Type}, {"Length minutes", Int64.Type}, {"Journal Entry", type text}, {"Medical Consults", Int64.Type}, {"Nurse Practitioner Consults", Int64.Type}, {"Nursing/Paramedic Consults", Int64.Type}, {"Conversations about health education", Int64.Type}, {"Allied Health", Int64.Type}, {"Referrals (Formal and informal)", Int64.Type}, {"Patient Conversations", Int64.Type}, {"Service provider conversations", Int64.Type}, {"Mental health", Int64.Type}, {"Suicide prevention/planning", Int64.Type}, {"Substance use", Int64.Type}, {"Medication education", Int64.Type}, {"Patients turned away", Int64.Type}, {"Telehealth consults that happened at Clinic", Int64.Type},  {"Patient Feedback Received ", type text}, {"Service Provider Feedback Received ", type text}, {"Complete debrief", type text}, {"Complete all progress notes", type text}, {"Enter all doctor and nurse practitioner appointments", type text}, {"Wipe down clinic area", type text}, {"Shift Safety", Int64.Type}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Data Types",{"Length hours"}),
 				    #"Replaced Value" = Table.ReplaceValue(#"Removed Columns","#(lf)  ",null,Replacer.ReplaceValue,{"Journal Entry"}),
 				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value",-7,7,Replacer.ReplaceValue,{"Service provider conversations"}),
-				    #"Replaced Value2" = Table.ReplaceValue(#"Replaced Value1","0",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
-				    #"Replaced Value3" = Table.ReplaceValue(#"Replaced Value2","Nil",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
-				    #"Replaced Value4" = Table.ReplaceValue(#"Replaced Value3","None",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
-				    #"Replaced Value5" = Table.ReplaceValue(#"Replaced Value4","No",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
-				    #"Replaced Value6" = Table.ReplaceValue(#"Replaced Value5","N/A",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
-				    #"Replaced Value7" = Table.ReplaceValue(#"Replaced Value6","Nul",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
-				    #"Replaced Value8" = Table.ReplaceValue(#"Replaced Value7","O",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
-				    #"Replaced Value9" = Table.ReplaceValue(#"Replaced Value8","1",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
-				    #"Replaced Value10" = Table.ReplaceValue(#"Replaced Value9","2",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
-				    #"Replaced Value11" = Table.ReplaceValue(#"Replaced Value10","3",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
-				    #"Replaced Value12" = Table.ReplaceValue(#"Replaced Value11","none",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
-				    #"Replaced Value13" = Table.ReplaceValue(#"Replaced Value12","9",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
-				    #"Replaced Value14" = Table.ReplaceValue(#"Replaced Value13","None Received",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
-				    #"Replaced Value16" = Table.ReplaceValue(#"Replaced Value14","Na",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
-				    #"Replaced Value15" = Table.ReplaceValue(#"Replaced Value16","4",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
-				    #"Replaced Value17" = Table.ReplaceValue(#"Replaced Value15","Oo",null,Replacer.ReplaceValue,{"Patient Feedback Received "}),
-				    #"Replaced Value18" = Table.ReplaceValue(#"Replaced Value17","0",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
-				    #"Replaced Value19" = Table.ReplaceValue(#"Replaced Value18","Nil",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
-				    #"Replaced Value20" = Table.ReplaceValue(#"Replaced Value19","O",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
-				    #"Replaced Value21" = Table.ReplaceValue(#"Replaced Value20","1",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
-				    #"Replaced Value22" = Table.ReplaceValue(#"Replaced Value21","2",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
-				    #"Replaced Value23" = Table.ReplaceValue(#"Replaced Value22","3",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
-				    #"Replaced Value24" = Table.ReplaceValue(#"Replaced Value23","None",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
-				    #"Replaced Value25" = Table.ReplaceValue(#"Replaced Value24","No",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
-				    #"Replaced Value26" = Table.ReplaceValue(#"Replaced Value25","N/A",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
-				    #"Replaced Value27" = Table.ReplaceValue(#"Replaced Value26","None ",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
-				    #"Replaced Value28" = Table.ReplaceValue(#"Replaced Value27","none",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
-				    #"Replaced Value29" = Table.ReplaceValue(#"Replaced Value28","N/a",null,Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
-				    #"Replaced Value30" = Table.ReplaceValue(#"Replaced Value29","0",null,Replacer.ReplaceValue,{"Complete debrief"}),
-				    #"Replaced Value31" = Table.ReplaceValue(#"Replaced Value30","0",null,Replacer.ReplaceValue,{"Complete all progress notes"}),
-				    #"Replaced Value32" = Table.ReplaceValue(#"Replaced Value31","0",null,Replacer.ReplaceValue,{"Enter all doctor and nurse practitioner appointments"}),
-				    #"Replaced Value33" = Table.ReplaceValue(#"Replaced Value32","0",null,Replacer.ReplaceValue,{"Wipe down clinic area"}),
-				    #"Replaced Value34" = Table.ReplaceValue(#"Replaced Value33",0,null,Replacer.ReplaceValue,{"Shift Safety"}),
-				    #"Replaced Value35" = Table.ReplaceValue(#"Replaced Value34",0,null,Replacer.ReplaceValue,{"Medical Consults"}),
-				    #"Replaced Value36" = Table.ReplaceValue(#"Replaced Value35",0,null,Replacer.ReplaceValue,{"Nurse Practitioner Consults"}),
-				    #"Replaced Value37" = Table.ReplaceValue(#"Replaced Value36",0,null,Replacer.ReplaceValue,{"Nursing/Paramedic Consults"}),
-				    #"Replaced Value38" = Table.ReplaceValue(#"Replaced Value37",0,null,Replacer.ReplaceValue,{"Allied Health"}),
-				    #"Replaced Value39" = Table.ReplaceValue(#"Replaced Value38",0,null,Replacer.ReplaceValue,{"Telehealth consults that happened at Clinic"}),
-				    #"Replaced Value40" = Table.ReplaceValue(#"Replaced Value39",0,null,Replacer.ReplaceValue,{"Suicide prevention/planning"}),
-				    #"Replaced Value41" = Table.ReplaceValue(#"Replaced Value40",0,null,Replacer.ReplaceValue,{"Mental health"}),
-				    #"Replaced Value42" = Table.ReplaceValue(#"Replaced Value41",0,null,Replacer.ReplaceValue,{"Substance use"}),
-				    #"Replaced Value43" = Table.ReplaceValue(#"Replaced Value42",0,null,Replacer.ReplaceValue,{"Service provider conversations"}),
-				    #"Replaced Value44" = Table.ReplaceValue(#"Replaced Value43",0,null,Replacer.ReplaceValue,{"Patient Conversations"}),
-				    #"Replaced Value45" = Table.ReplaceValue(#"Replaced Value44",0,null,Replacer.ReplaceValue,{"Conversations about health education"}),
-				    #"Replaced Value46" = Table.ReplaceValue(#"Replaced Value45",0,null,Replacer.ReplaceValue,{"Medication education"}),
-				    #"Duplicated Column" = Table.DuplicateColumn(#"Replaced Value46", "Activity", "Activity - Copy"),
+				    #"Replaced Value2" = Table.ReplaceValue(#"Replaced Value1", 
+				        each [#"Patient Feedback Received "], 
+				        each if [#"Patient Feedback Received "] = "0" then null
+				        else if [#"Patient Feedback Received "] = "O" then null
+				        else if [#"Patient Feedback Received "] = "Nil" then null
+				        else if [#"Patient Feedback Received "] = "None" then null
+				        else if [#"Patient Feedback Received "] = "No" then null
+				        else if [#"Patient Feedback Received "] = "N/A" then null
+				        else if [#"Patient Feedback Received "] = "Nul" then null
+				        else if [#"Patient Feedback Received "] = "1" then null
+				        else if [#"Patient Feedback Received "] = "2" then null
+				        else if [#"Patient Feedback Received "] = "3" then null
+				        else if [#"Patient Feedback Received "] = "none" then null
+				        else if [#"Patient Feedback Received "] = "9" then null
+				        else if [#"Patient Feedback Received "] = "None Received " then null
+				        else if [#"Patient Feedback Received "] = "Na" then null
+				        else if [#"Patient Feedback Received "] = "4" then null
+				        else if [#"Patient Feedback Received "] = "Oo" then null
+				        else if [#"Patient Feedback Received "] = "" then null
+				        else [#"Patient Feedback Received "], 
+				        Replacer.ReplaceValue,{"Patient Feedback Received "}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Replaced Value2",{{"Patient Feedback Received ", type text}}), 
+				    #"Replaced Value3" = Table.ReplaceValue(#"Changed Type1",
+				        each [#"Service Provider Feedback Received "], 
+				        each if [#"Service Provider Feedback Received "] = "0" then null
+				        else if [#"Service Provider Feedback Received "] = "Nil" then null
+				        else if [#"Service Provider Feedback Received "] = "O" then null
+				        else if [#"Service Provider Feedback Received "] = "1" then null
+				        else if [#"Service Provider Feedback Received "] = "2" then null
+				        else if [#"Service Provider Feedback Received "] = "3" then null
+				        else if [#"Service Provider Feedback Received "] = "None" then null
+				        else if [#"Service Provider Feedback Received "] = "No" then null
+				        else if [#"Service Provider Feedback Received "] = "N/A" then null
+				        else if [#"Service Provider Feedback Received "] = "None " then null
+				        else if [#"Service Provider Feedback Received "] = "none" then null
+				        else if [#"Service Provider Feedback Received "] = "None Received " then null
+				        else if [#"Service Provider Feedback Received "] = "N/a" then null
+				        else [#"Service Provider Feedback Received "],
+				        Replacer.ReplaceValue,{"Service Provider Feedback Received "}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Replaced Value3",{{"Service Provider Feedback Received ", type text}}),
+				    #"Replaced Value4" = Table.ReplaceValue(#"Changed Type2",
+				        "0",null,
+				        Replacer.ReplaceValue,
+				        {"Complete debrief", "Complete all progress notes", "Enter all doctor and nurse practitioner appointments", "Wipe down clinic area"}),
+				    #"Replaced Value5" = Table.ReplaceValue(#"Replaced Value4",
+				        0,null,
+				        Replacer.ReplaceValue,
+				        {"Shift Safety", "Medical Consults", "Nurse Practitioner Consults", "Nursing/Paramedic Consults", 
+				         "Allied Health", "Telehealth consults that happened at Clinic", "Suicide prevention/planning",
+				         "Mental health", "Substance use", "Service provider conversations", "Patient Conversations", 
+				         "Conversations about health education", "Medication education" }),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Replaced Value5", "Activity", "Activity - Copy"),
 				    #"Renamed Columns" = Table.RenameColumns(#"Duplicated Column",{{"Activity - Copy", "ActivitySimplified"}}),
-				    #"Replaced Value47" = Table.ReplaceValue(#"Renamed Columns","Telehealth Clinic ","Telehealth Clinic",Replacer.ReplaceText,{"ActivitySimplified"}),
-				    #"Replaced Value48" = Table.ReplaceValue(#"Replaced Value47","Maroochydore Neighbourhood Centre Community Event","Maroochy Neighbourhood Centre",Replacer.ReplaceText,{"ActivitySimplified"}),
-				    #"Replaced Value49" = Table.ReplaceValue(#"Replaced Value48","Maroochy Neighbourhood Centre ","Maroochy Neighbourhood Centre",Replacer.ReplaceText,{"ActivitySimplified"}),
-				    #"Replaced Value50" = Table.ReplaceValue(#"Replaced Value49","Hervey Bay Neighbourhood/ Community Centre ","Hervey Bay Neighbourhood",Replacer.ReplaceText,{"ActivitySimplified"}),
-				    #"Replaced Value51" = Table.ReplaceValue(#"Replaced Value50","The Shack Friday ","The Shack",Replacer.ReplaceText,{"ActivitySimplified"}),
-				    #"Replaced Value52" = Table.ReplaceValue(#"Replaced Value51","The Shack Wednesday ","The Shack",Replacer.ReplaceText,{"ActivitySimplified"}),
-				    #"Filtered Rows1" = Table.SelectRows(#"Replaced Value52", each true),
-				    #"Renamed Columns1" = Table.RenameColumns(#"Filtered Rows1",{{"Patient Feedback Received ", "PatientFeedback"}, {"Service Provider Feedback Received ", "ServiceProviderFeedback"}})
+				    #"Replaced Value6" = Table.ReplaceValue(#"Renamed Columns",
+				        each [#"ActivitySimplified"], 
+				        each if [#"ActivitySimplified"] = "Telehealth Clinic " then "Telehealth Clinic"
+				        else if [#"ActivitySimplified"] = "Maroochydore Neighbourhood Centre Community Event" then "Maroochy Centre"
+				        else if [#"ActivitySimplified"] = "Maroochy Neighbourhood Centre" then "Maroochy Centre"
+				        else if [#"ActivitySimplified"] = "Hervey Bay Neighbourhood/ Community Centre " then "Hervey Bay Neighbourhood"
+				        else if [#"ActivitySimplified"] = "The Shack Friday " then "The Shack"
+				        else if [#"ActivitySimplified"] = "The Shack Wednesday " then "The Shack"
+				        else [#"ActivitySimplified"],
+				        Replacer.ReplaceText,{"ActivitySimplified"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Replaced Value6",{{"Patient Feedback Received ", "PatientFeedback"}, {"Service Provider Feedback Received ", "ServiceProviderFeedback"}})
 				in
 				    #"Renamed Columns1"
+				```
 
 	annotation PBI_NavigationStepName = Navigation
 

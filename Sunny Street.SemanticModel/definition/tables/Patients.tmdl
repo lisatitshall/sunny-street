@@ -128,8 +128,8 @@ table Patients
 				    Source = Excel.Workbook(File.Contents("C:\Users\lisat\Documents\Sunny Street\data\Sunny Street - Patient data 3 years.xlsx"), null, true),
 				    #"Patient data_Sheet" = Source{[Item="Patient data",Kind="Sheet"]}[Data],
 				    #"Promoted Headers" = Table.PromoteHeaders(#"Patient data_Sheet", [PromoteAllScalars=true]),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Year", Int64.Type}, {"Patient address ", type text}, {"Postcode", type text}, {"City", type text}, {"Year of birth ", Int64.Type}, {"Ethnicity", type text}, {"Patient unique ID", type text}, {"Gender", type text}}),
-				    #"Removed Blank Rows" = Table.SelectRows(#"Changed Type", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Change Data Types" = Table.TransformColumnTypes(#"Promoted Headers",{{"Year", Int64.Type}, {"Patient address ", type text}, {"Postcode", type text}, {"City", type text}, {"Year of birth ", Int64.Type}, {"Ethnicity", type text}, {"Patient unique ID", type text}, {"Gender", type text}}),
+				    #"Removed Blank Rows" = Table.SelectRows(#"Change Data Types", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
 				    #"Replaced Value" = Table.ReplaceValue(#"Removed Blank Rows",1900,null,Replacer.ReplaceValue,{"Year of birth "}),
 				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value","Not provided",null,Replacer.ReplaceValue,{"Ethnicity"}),
 				    #"Replaced Value2" = Table.ReplaceValue(#"Replaced Value1",
@@ -138,12 +138,12 @@ table Patients
 				    else if [Gender] = "Unknown" then null
 				    else [Gender],
 				    Replacer.ReplaceValue,{"Gender"}),
-				    #"Added Custom" = Table.AddColumn(#"Replaced Value2", "Ethnicity Region", each if List.Contains({"English","French","Greek","Finnish", "Italian"},[Ethnicity]) then "European"
+				    #"Added Custom Column" = Table.AddColumn(#"Replaced Value2", "Ethnicity Region", each if List.Contains({"English","French","Greek","Finnish", "Italian"},[Ethnicity]) then "European"
 				else if List.Contains({"Lao","Indonesian", "Mongolian"},[Ethnicity]) then "Asian"
 				else if List.Contains({"Lebanese", "Somali", "Liberian"},[Ethnicity]) then "Middle Eastern and African"
 				else if List.Contains({"New Zealander", "Samoan", "Tongan","Maori", "Papua New Guinean"},[Ethnicity]) then "Oceanian"
 				else [Ethnicity]),
-				    #"Replaced Value3" = Table.ReplaceValue(#"Added Custom","Address hidden","Housed",Replacer.ReplaceText,{"Patient address "})
+				    #"Replaced Value3" = Table.ReplaceValue(#"Added Custom Column","Address hidden","Housed",Replacer.ReplaceText,{"Patient address "})
 				in
 				    #"Replaced Value3"
 
